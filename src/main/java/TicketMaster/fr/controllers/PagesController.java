@@ -58,7 +58,6 @@ public class PagesController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Tickets ticket) {
-        // Vérifier si le ticket est bien rempli
         if (ticket == null || ticket.getId() == null) {
             System.out.println("Erreur : le ticket envoyé est null !");
             return "redirect:/";
@@ -192,7 +191,9 @@ public class PagesController {
     }
 
     @GetMapping("/description")
-    public String description(@ModelAttribute String id) {
+    public String description(@RequestParam(required = true) String id, ModelMap modelMap) {
+        System.out.println(id);
+        modelMap.addAttribute("ticket", table.get(Integer.parseInt(id)));
         return "pages/description";
     }
 }

@@ -20,7 +20,7 @@ public class Tickets {
     private String email;
     private String adresse;
     private String ville;
-    private static final String LOG_DIR = "logs/ticket";
+    private static final String LOG_DIR = "logs/tickets/ticket";
 
     public Tickets() {
     }
@@ -36,7 +36,7 @@ public class Tickets {
         this.email = email;
         this.adresse = (adresse != null && !adresse.isEmpty()) ? adresse : "Adresse inconnue";
         this.ville = (ville != null && !ville.isEmpty()) ? ville : "Ville inconnue";
-        logs(this.description);
+
     }
 
     public String getId() { return id; }
@@ -54,7 +54,15 @@ public class Tickets {
         return new ArrayList<>();
     }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String desc) {
+        try {
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            desc =  timestamp + " "+ desc + "\n";
+            Files.write(Paths.get(LOG_DIR+this.id+".log"), desc.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getDate() { return date; }
     public void setDate(String date) { this.date = date; }
@@ -82,17 +90,6 @@ public class Tickets {
                 this.prenom + " " + this.nom + " " + this.email + " " + this.adresse + " " + this.ville;
     }
 
-    public void logs(String desc){
-        try {
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-            desc =  timestamp + " "+ desc + "\n";
-            Files.write(Paths.get(LOG_DIR+this.id+".log"), desc.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     public List<String> toList(){
         List<String> list = new ArrayList<>();

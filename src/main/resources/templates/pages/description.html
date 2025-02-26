@@ -6,6 +6,11 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-
+<div th:insert="fragments/navbar"></div><br>
+<div class="container">
+    <div th:each="sublist : ${ticket.getDescription()}">
+        <h1 th:text="${sublist}"></h1>
+    </div>
+</div>
 </body>
 </html>
