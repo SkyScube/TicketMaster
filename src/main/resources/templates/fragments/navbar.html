@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Navbar Exemple</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .navbar {
+            display: flex; /* Active Flexbox */
+            justify-content: space-between; /* Espace entre les éléments */
+            align-items: center; /* Centre verticalement */
+            background-color: #333; /* Couleur de fond */
+            padding: 10px 20px;
+            width: 98%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo a {
+            color: white; /* Couleur du texte */
+            text-decoration: none; /* Supprime le soulignement */
+            font-size: 24px; /* Taille du texte */
+            font-weight: bold; /* Gras */
+        }
+
+        .form-container form {
+            display: flex; /* Active Flexbox dans le formulaire */
+            align-items: center; /* Aligne verticalement les éléments */
+            gap: 10px; /* Espace entre les éléments du formulaire */
+        }
+
+        .form-container label {
+            color: white; /* Couleur du texte du label */
+            font-size: 14px;
+        }
+
+        .form-container input {
+            padding: 5px; /* Ajoute de l'espace interne */
+            border: 1px solid #ccc;
+            border-radius: 4px; /* Arrondi des coins */
+        }
+
+        .form-container button {
+            background-color: #575757;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px; /* Arrondi des coins */
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #444; /* Couleur au survol */
+        }
+
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">
+        <a href="/">MonApp</a>
+    </div>
+    <a th:href="@{/new}"> voila </a>
+    <div class="form-container">
+        <form action="/submit" method="post">
+            <label for="inputText">Saisissez du texte :</label>
+            <input type="text" id="inputText" name="inputText" required>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

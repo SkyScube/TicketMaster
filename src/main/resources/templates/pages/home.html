@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+  <div th:insert="fragments/navbar"></div><br>
+  <div th:if="${table != null and id == null}">
+    <div class="container">
+        <div th:each="subList : ${table}" th:if="${subList.state == 'Ouvert' or subList.state == 'En cours' or subList.state == 'À traiter'}">
+          <a class="affiche" th:href="@{/(id=${subList.id})}">
+            <p ><span>id :</span> <span th:text="${subList.id}"></span></p>
+            <p><span>prénom :</span> <span th:text="${subList.prenom}"></span></p>
+            <p><span>nom :</span> <span th:text="${subList.nom}"></span></p>
+            <p><span>cuid :</span> <span th:text="${subList.cuid}"></span></p>
+            <p><span>etat :</span> <span th:text="${subList.state}"></span></p>
+          </a>
+        </div>
+      </div>
+  </div>
+
+  <div th:if="${table == null and id != null}">
+    <div class="custom-container">
+      <div class="custom-row">
+        <div class="custom-column">
+          <div class="info-box">
+            <h2>Informations</h2>
+            <p><strong>ID :</strong> <span th:text="${id.id}"></span></p>
+            <p><strong>CUID :</strong> <span th:text="${id.cuid}"></span></p>
+            <a th:href="@{/description(id=${id.id})}">
+              <button class="custom-button" type="button">Voir la description</button>
+            </a>
+            <button class="custom-button" th:href="@{/description(id=${id.id})}">Descriptions</button>
+            <p><strong>Date :</strong> <span th:text="${id.date}"></span></p>
+            <p><strong>État :</strong> <span th:text="${id.state}"></span></p>
+            <p><strong>Prénom :</strong> <span th:text="${id.prenom}"></span></p>
+            <p><strong>Nom :</strong> <span th:text="${id.nom}"></span></p>
+            <p><strong>Email :</strong> <span th:text="${id.email}"></span></p>
+            <p><strong>Adresse :</strong> <span th:text="${id.adresse}"></span></p>
+            <p><strong>Ville :</strong> <span th:text="${id.ville}"></span></p>
+          </div>
+        </div>
+
+        <div class="custom-column">
+          <div class="form-box">
+            <h2>Modifier les informations</h2>
+            <form th:action="@{/update}" method="post" th:object="${id}">
+              <label for="id">Id :</label>
+              <input type="text" id="id" name="id" th:field="*{id}" readonly/>
+
+              <label for="cuid">cuid :</label>
+              <input type="text" id="cuid" th:field="*{cuid}" readonly/>
+
+              <!--<label for="description">description :</label>
+              <input type="text" id="description" th:field="*{description}" />-->
+
+              <label for="date">date :</label>
+              <input type="text" id="date" th:field="*{date}" />
+
+              <label for="state">etat :<label>
+              <select id="state" th:field="*{state}">
+                <option value="Ouvert">Ouvert</option>
+                <option value="En cours">En cours</option>
+                <option value="Clos">Clos</option>
+              </select>
+
+              <label for="prenom">Prénom :</label>
+              <input type="text" id="prenom" th:field="*{prenom}" readonly/>
+
+              <label for="nom">Nom :</label>
+              <input type="text" id="nom" th:field="*{nom}" readonly/>
+
+              <label for="email">Email :</label>
+              <input type="email" id="email" th:field="*{email}" readonly/>
+
+              <label for="adresse">Adresse :</label>
+              <input type="text" id="adresse" th:field="*{adresse}" readonly/>
+
+              <label for="ville">Ville :</label>
+              <input type="text" id="ville" th:field="*{ville}" readonly/>
+
+              <button type="submit" class="custom-button">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

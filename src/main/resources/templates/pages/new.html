@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div th:insert="fragments/navbar"></div><br>
+    <div class="custom-container">
+        <div class="form-box">
+            <h2>Modifier les informations</h2>
+            <form th:action="@{/new}" method="post" th:object="${ticket}">
+                <label for="id">Id :</label>
+                <input type="text" id="id" name="id" th:value="${id}" readonly/>
+
+                <label for="cuid">cuid :</label>
+                <input type="text" id="cuid" th:field="*{cuid}" required/>
+
+                <label for="description">description :</label>
+                <input type="text" id="description" th:field="*{description}" required/>
+
+                <label for="date">date :</label>
+                <input type="text" id="date" th:value="${date}" readonly/>
+
+                <label for="state">etat :</label>
+                    <select id="state" th:field="*{state}" required>
+                        <option value="Ouvert">Ouvert</option>
+                        <option value="En cours">En cours</option>
+                        <option value="Clos">Clos</option>
+                    </select>
+
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" th:field="*{prenom}" required/>
+
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" th:field="*{nom}" required/>
+
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" th:field="*{email}" required/>
+
+                    <label for="adresse">Adresse :</label>
+                    <input type="text" id="adresse" th:field="*{adresse}" required/>
+
+                    <label for="ville">Ville :</label>
+                    <input type="text" id="ville" th:field="*{ville}" required/>
+
+                    <button type="submit" class="custom-button">Enregistrer</button>
+            </form>
+        </div>
+        <script th:if="${success}">
+            Swal.fire({
+                title: 'Succès!',
+                text: 'Le ticket a été créé avec succès.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/';
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

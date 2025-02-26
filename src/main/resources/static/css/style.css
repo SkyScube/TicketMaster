@@ -1,0 +1,154 @@
+/* Applique un style général au corps de la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteneur principal pour les liens */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des liens */
+.affiche {
+    display: block;
+    padding: 10px 15px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #333;
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Effet au survol des liens */
+.affiche:hover {
+    color: #ffffff;
+    background-color: #00acc1;
+    border-color: #00838f;
+    transform: translateY(-3px);
+}
+
+/* Texte à l'intérieur des liens */
+.affiche span {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Ajout d'un séparateur visuel entre les éléments */
+.affiche:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Conteneur principal de la page */
+.custom-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Gestion des colonnes */
+.custom-row {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Colonnes */
+.custom-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Style des informations affichées */
+.info-box {
+    background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #b2dffc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h2 {
+    color: #0077b6;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Style du formulaire */
+.form-box {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-box h2 {
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.form-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-box label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.form-box input,
+.form-box select {
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* Bouton */
+.custom-button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #005f8d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .custom-row {
+        flex-direction: column;
+    }
+}

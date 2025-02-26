@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:insert="fragments/navbar"></div><br>
+<div class="container">
+    <div th:each="subList : ${table}">
+                <a class="affiche" th:href="@{/(id=${subList[0]})}">
+                    <p ><span>id :</span> <span th:text="${subList[0]}"></span></p>
+                    <p><span>prénom :</span> <span th:text="${subList[4]}"></span></p>
+                    <p><span>nom :</span> <span th:text="${subList[5]}"></span></p>
+                    <p><span>cuid :</span> <span th:text="${subList[1]}"></span></p>
+                </a>
+            </div>
+        </div>
+</body>
+</html>
