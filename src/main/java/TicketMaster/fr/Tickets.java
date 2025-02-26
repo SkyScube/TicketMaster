@@ -50,6 +50,7 @@ public class Tickets {
             return Files.readAllLines(Paths.get(LOG_DIR+ this.id+".log"));
         } catch (IOException e){
             e.printStackTrace();
+
         }
         return new ArrayList<>();
     }
