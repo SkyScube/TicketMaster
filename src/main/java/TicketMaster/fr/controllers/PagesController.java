@@ -186,7 +186,6 @@ public class PagesController {
         } else {
             LogManager.log("ERROR", "Ticket : " + ticket.getId() + " can't be created");
         }
-
         return "redirect:/new";
     }
 
