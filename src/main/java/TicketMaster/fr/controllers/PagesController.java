@@ -171,7 +171,6 @@ public class PagesController {
                     ticket.getCuid(), ticket.getPrenom(), ticket.getNom(),
                     ticket.getEmail(), ticket.getAdresse(), ticket.getVille()
             );
-
             if (executeUpdate(insertUserQuery, insertUserParams)) {
                 LogManager.log("INSERT", "User : " + ticket.getCuid() + " has been created in table user");
             }
