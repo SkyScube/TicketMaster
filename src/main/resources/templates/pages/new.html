@@ -19,7 +19,7 @@
                 <input type="text" id="cuid" th:field="*{cuid}" required/>
 
                 <label for="description">description :</label>
-                <input type="text" id="description" th:field="*{description}" required/>
+                <input type="text" id="description" name="description" th:value="${description}" required/>
 
                 <label for="date">date :</label>
                 <input type="text" id="date" th:value="${date}" readonly/>

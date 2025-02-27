@@ -156,7 +156,7 @@ public class PagesController {
     }
 
     @PostMapping("/new")
-    public String newTicket(@ModelAttribute Tickets ticket, RedirectAttributes redirectAttributes) {
+    public String newTicket(@ModelAttribute Tickets ticket,@RequestParam("description") String description, RedirectAttributes redirectAttributes) {
         System.out.println(ticket);
 
         // Vérifier si l'utilisateur existe
@@ -177,6 +177,8 @@ public class PagesController {
         }
 
         String insertTicketQuery = "INSERT INTO ticket (cuid, description, state) VALUES (?, ?, ?)";
+        System.out.println(description);
+        ticket.setDescription(description);
         List<Object> insertTicketParams = Arrays.asList(ticket.getCuid(), ticket.getDescription(), ticket.getState());
 
         if (executeUpdate(insertTicketQuery, insertTicketParams)) {
@@ -190,8 +192,16 @@ public class PagesController {
 
     @GetMapping("/description")
     public String description(@RequestParam(required = true) String id, ModelMap modelMap) {
-        System.out.println(id);
-        modelMap.addAttribute("ticket", table.get(Integer.parseInt(id)));
+        modelMap.addAttribute("ticket", table.get(Integer.parseInt(id)-1));
         return "pages/description";
+    }
+
+    @PostMapping("/description")
+    public String desc(@RequestParam("description") String descritpion,@RequestParam("id") String id,RedirectAttributes redirectAttributes) {
+        Tickets ticket = table.get(Integer.parseInt(id)-1);
+        ticket.setDescription(descritpion);
+        redirectAttributes.addFlashAttribute("success", true);
+
+        return "redirect:/?id="+id;
     }
 }

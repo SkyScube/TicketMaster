@@ -29,6 +29,9 @@ public class Tickets {
         this.id = id;
         this.cuid = cuid;
         this.description = (description != null && !description.isEmpty()) ? description : "Pas de description";
+        if (!Files.exists(Paths.get(LOG_DIR + this.id + ".log"))) {
+            setDescription(description);
+        }
         this.date = (date != null && !date.isEmpty()) ? date : "Non spécifiée";
         this.state = (state != null && !state.isEmpty()) ? state : "En attente";
         this.prenom = prenom;
@@ -59,6 +62,7 @@ public class Tickets {
         try {
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             desc =  timestamp + " "+ desc + "\n";
+            System.out.println(this.id + desc);
             Files.write(Paths.get(LOG_DIR+this.id+".log"), desc.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
