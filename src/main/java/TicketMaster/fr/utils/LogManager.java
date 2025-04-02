@@ -27,4 +27,15 @@ public class LogManager {
             e.printStackTrace();
         }
     }
+
+    public static void TechLog(String action, String user, String message) {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        String logMessage = timestamp + " [" + action + "] " + user + " : " + message + "\n";
+
+        try{
+            Files.write(Paths.get("logs/TechActions.log"),logMessage.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

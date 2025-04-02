@@ -1,5 +1,8 @@
 package TicketMaster.fr;
 
+import lombok.Data;
+import lombok.Setter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class Tickets {
     private String id;
     private String cuid;
@@ -17,6 +21,7 @@ public class Tickets {
     private String state;
     private String prenom;
     private String nom;
+    @Setter
     private String email;
     private String adresse;
     private String ville;
@@ -42,12 +47,6 @@ public class Tickets {
 
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getCuid() { return cuid; }
-    public void setCuid(String cuid) { this.cuid = cuid; }
-
     public List<String> getDescription() {
         try{
             return Files.readAllLines(Paths.get(LOG_DIR+ this.id+".log"));
@@ -68,27 +67,6 @@ public class Tickets {
             e.printStackTrace();
         }
     }
-
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
-
-    public String getState() { return state; }
-    public void setState(String state) { this.state = state; }
-
-    public String getPrenom() { return prenom; }
-    public void setPrenom(String prenom) { this.prenom = prenom; }
-
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getAdresse() { return adresse; }
-    public void setAdresse(String adresse) { this.adresse = adresse; }
-
-    public String getVille() { return ville; }
-    public void setVille(String ville) { this.ville = ville; }
 
     public String toString(){
         return this.id + " " + this.cuid + " " + this.description + " " + this.date + " " + this.state + " " +

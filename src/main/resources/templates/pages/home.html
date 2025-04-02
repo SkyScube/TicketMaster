@@ -12,14 +12,15 @@
         <div th:each="subList : ${table}" th:if="${subList.state == 'Ouvert' or subList.state == 'En cours' or subList.state == 'À traiter'}">
           <a class="affiche" th:href="@{/(id=${subList.id})}">
             <p ><span>id :</span> <span th:text="${subList.id}"></span></p>
-            <p><span>prénom :</span> <span th:text="${subList.prenom}"></span></p>
-            <p><span>nom :</span> <span th:text="${subList.nom}"></span></p>
-            <p><span>cuid :</span> <span th:text="${subList.cuid}"></span></p>
+            <p><span>prénom :</span> <span th:text="${subList.user.getPrenom()}"></span></p>
+            <p><span>nom :</span> <span th:text="${subList.user.getNom()}"></span></p>
+            <p><span>cuid :</span> <span th:text="${subList.user.getCuid()}"></span></p>
             <p><span>etat :</span> <span th:text="${subList.state}"></span></p>
           </a>
         </div>
       </div>
   </div>
+
 
   <div th:if="${table == null and id != null}">
     <div class="custom-container">
@@ -28,21 +29,21 @@
           <div class="info-box">
             <h2>Informations</h2>
             <p><strong>ID :</strong> <span th:text="${id.id}"></span></p>
-            <p><strong>CUID :</strong> <span th:text="${id.cuid}"></span></p>
+            <p><strong>CUID :</strong> <span th:text="${id.user.getCuid()}"></span></p>
             <a th:href="@{/description(id=${id.id})}">
               <button class="custom-button" type="button">Voir la description</button>
             </a>
             <button class="custom-button" th:href="@{/description(id=${id.id})}">Descriptions</button>
             <p><strong>Date :</strong> <span th:text="${id.date}"></span></p>
             <p><strong>État :</strong> <span th:text="${id.state}"></span></p>
-            <p><strong>Prénom :</strong> <span th:text="${id.prenom}"></span></p>
-            <p><strong>Nom :</strong> <span th:text="${id.nom}"></span></p>
-            <p><strong>Email :</strong> <span th:text="${id.email}"></span></p>
-            <p><strong>Adresse :</strong> <span th:text="${id.adresse}"></span></p>
-            <p><strong>Ville :</strong> <span th:text="${id.ville}"></span></p>
+            <p><strong>Prénom :</strong> <span th:text="${id.user.getPrenom()}"></span></p>
+            <p><strong>Nom :</strong> <span th:text="${id.user.getNom()}"></span></p>
+            <p><strong>Email :</strong> <span th:text="${id.user.getEmail()}"></span></p>
+            <p><strong>Adresse :</strong> <span th:text="${id.user.getAdresse()}"></span></p>
+            <p><strong>Ville :</strong> <span th:text="${id.user.getVille() }"></span></p>
           </div>
         </div>
-
+<!--
         <div class="custom-column">
           <div class="form-box">
             <h2>Modifier les informations</h2>
@@ -53,8 +54,8 @@
               <label for="cuid">cuid :</label>
               <input type="text" id="cuid" th:field="*{cuid}" readonly/>
 
-              <!--<label for="description">description :</label>
-              <input type="text" id="description" th:field="*{description}" />-->
+              <label for="description">description :</label>
+              <input type="text" id="description" th:field="*{description}" />
 
               <label for="date">date :</label>
               <input type="text" id="date" th:field="*{date}" />
@@ -82,7 +83,7 @@
               <input type="text" id="ville" th:field="*{ville}" readonly/>
 
               <button type="submit" class="custom-button">Enregistrer</button>
-            </form>
+            </form>-->
           </div>
         </div>
       </div>

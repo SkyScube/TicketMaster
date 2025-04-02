@@ -9,14 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DbManager {
-    public static String path = "jdbc:sqlite:/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite";
+
+    public static String path = "jdbc:mysql://localhost:3306/Test";
 
     public static List<Tickets> gettable() {
         List<Tickets> table = new ArrayList<>();
 
         String sql = "SELECT * FROM ticket JOIN user using (cuid)"; // Votre requête SQL
 
-        try (Connection conn = DriverManager.getConnection(path);
+        try (Connection conn = DriverManager.getConnection(path, "root", "RandomPSW");
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -43,7 +44,7 @@ public class DbManager {
         } catch (SQLException e) {
             LogManager.log("Error", "Error on the table : "+ e.getMessage());
         }
-        return table;
+        return new ArrayList<>();
     }
 
     public static List<List<String>> query(List<List<String>> arg, String user){

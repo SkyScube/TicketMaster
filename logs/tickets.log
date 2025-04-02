@@ -297,3 +297,65 @@
 27-02-2025 01:03 [SUCCESS] User has been found : Fiveash Matthiew
 27-02-2025 01:03 [SUCCESS] User has been found : Fiveash Matthiew
 27-02-2025 01:03 [SUCCESS] User has been found : Fiveash Matthiew
+27-02-2025 08:30 [SUCCESS] User has been found : Sivell Jeannie
+27-02-2025 08:31 [SUCCESS] User has been found : De montauband Regis
+28-03-2025 15:37 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+28-03-2025 15:39 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+28-03-2025 15:39 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+28-03-2025 15:39 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+28-03-2025 15:44 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+28-03-2025 15:47 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+28-03-2025 15:51 [Error] Error on the table : path to '/home/skyscube/Downloads/fr (2)/src/main/resources/static/database/identifier.sqlite': '/home/skyscube/Downloads/fr (2)/src' does not exist
+31-03-2025 00:22 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:33 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:36 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:37 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:39 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:39 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:39 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:40 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:45 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:47 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:49 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:53 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:55 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:58 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 00:58 [ERROR] Bad credentials
+31-03-2025 00:58 [ERROR] Bad credentials
+31-03-2025 01:00 [ERROR] Bad credentials
+31-03-2025 01:03 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 01:04 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 01:06 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 13:17 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 13:36 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 13:38 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 13:39 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 16:05 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 16:07 [Error] Error on the table : No suitable driver found for jdbc:sqlite:/home/skyscube/Downloads/fr_(2)/src/main/resources/database/identifier.sqlite
+31-03-2025 16:11 [Error] Error on the table : Access denied for user 'skyscube'@'172.17.0.1' (using password: NO)
+31-03-2025 16:14 [Error] Error on the table : Table 'Test.ticket' doesn't exist
+31-03-2025 16:16 [Error] Error on the table : Table 'Test.ticket' doesn't exist
+31-03-2025 16:21 [Error] Error on the table : Table 'Test.user' doesn't exist
+01-04-2025 14:33 [CONNECTION] nique logged in
+01-04-2025 16:00 [CONNECTION] nique logged in
+01-04-2025 16:00 [SUCCESS] User has been found : Fiveash Matthiew
+01-04-2025 16:22 [CONNECTION] nique logged in
+01-04-2025 16:39 [CONNECTION] nique logged in
+01-04-2025 16:54 [SUCCESS] User has been found : Leola Kennady
+01-04-2025 16:56 [CONNECTION] nique logged in
+01-04-2025 16:56 [SUCCESS] User has been found : Leola Kennady
+01-04-2025 16:56 [SUCCESS] User has been found : Leola Kennady
+01-04-2025 16:58 [SUCCESS] User has been found : Leola Kennady
+01-04-2025 16:58 [SUCCESS] User has been found : Leola Kennady
+01-04-2025 16:58 [SUCCESS] User has been found : Leola Kennady
+01-04-2025 17:00 [SUCCESS] User has been found : Leola Kennady
+02-04-2025 02:36 [ERROR] Bad credentials
+02-04-2025 02:36 [ERROR] Bad credentials
+02-04-2025 02:37 [CONNECTION] moi logged in
+02-04-2025 02:39 [SUCCESS] User has been found : Leola Kennady
+02-04-2025 02:58 [ERROR] Bad credentials
+02-04-2025 02:59 [ERROR] Bad credentials
+02-04-2025 03:03 [ERROR] Bad credentials
+02-04-2025 03:04 [CONNECTION] nique logged in
+02-04-2025 03:20 [CONNECTION] moi logged in
+02-04-2025 03:21 [CONNECTION] moi logged in

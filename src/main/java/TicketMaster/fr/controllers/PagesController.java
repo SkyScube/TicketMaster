@@ -1,7 +1,13 @@
 package TicketMaster.fr.controllers;
 
+import TicketMaster.fr.DbManagers.Ticket;
+import TicketMaster.fr.DbManagers.TicketsRepository;
+import TicketMaster.fr.DbManagers.TicketsService;
 import TicketMaster.fr.Tickets;
 import TicketMaster.fr.utils.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,129 +26,33 @@ import static TicketMaster.fr.Main.*;
 
 @Controller
 public class PagesController {
+    @Autowired
+    private TicketsService ticketsService;
 
     public List<Tickets> table = gettable();
-    public int userIndex;
+    public Long userIndex;
+
 
     @GetMapping("/")
     public String home(@RequestParam(required = false, defaultValue = "-1") String id, ModelMap modelMap) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if ("-1".equals(id)) {
             modelMap.addAttribute("tickets", null);
-            modelMap.addAttribute("table", table);
+            modelMap.addAttribute("table", ticketsService.getAllTickets());
             modelMap.addAttribute("id", null);
         } else {
             modelMap.addAttribute("tickets", null);
-            userIndex = Integer.parseInt(id) - 1;
-            Tickets user = table.get(userIndex);
+            userIndex = Long.parseLong(id);
+            Ticket ticket = ticketsService.getTicketById(userIndex);
             modelMap.addAttribute("table", null);
-            modelMap.addAttribute("id", user);
-            LogManager.log("SUCCESS", "User has been found : "+ user.getNom() + " " + user.getPrenom());
-            System.out.println(user.getDescription());
+            modelMap.addAttribute("id", ticket);
+            LogManager.TechLog("SUCCESS", authentication.getName(), "Found : "+ ticket.getUser().getPrenom() + " " + ticket.getUser().getNom());
         }
-
         return "pages/home"; // Renvoyer la vue
     }
 
-    @PostMapping("/submit")
-    public String submit(@RequestParam("inputText") String inputText, ModelMap modelMap) {
-        List<List<String>> search = query(golist(table,true), inputText);
-        modelMap.addAttribute("table", search);
-        return "pages/submit";
-    }
 
-    @PostMapping("/solve")
-    public String solve(ModelMap modelMap) {
-        executeUpdate("UPDATE ticket SET state = 'Clos' Where id = ?", List.of(userIndex + 1));
-        return "redirect:/";
-    }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute Tickets ticket) {
-        if (ticket == null || ticket.getId() == null) {
-            System.out.println("Erreur : le ticket envoyé est null !");
-            return "redirect:/";
-        }
-
-        // Récupérer l'ancien ticket via l'ID
-        Tickets t = table.stream()
-                .filter(tk -> tk.getId().equals(ticket.getId()))
-                .findFirst()
-                .orElse(null);
-
-        // Vérifier si le ticket existe dans la base
-        if (t == null) {
-            System.out.println("Erreur : ticket introuvable avec ID " + ticket.getId());
-            return "redirect:/";
-        }
-
-        // Construire la requête SQL
-        StringBuilder sql = new StringBuilder("UPDATE ticket SET ");
-        List<String> up = new ArrayList<>();
-        List<Object> parameters = new ArrayList<>();
-        List<String> logChanges = new ArrayList<>();
-
-        if (!ticket.getCuid().equals(t.getCuid())) {
-            up.add("cuid = ?");
-            parameters.add(ticket.getCuid());
-            logChanges.add("CUID: " + t.getCuid() + " → " + ticket.getCuid());
-        }
-        if (!ticket.getDescription().equals(t.getDescription())) {
-            up.add("description = ?");
-            parameters.add(ticket.getDescription());
-            logChanges.add("Description: " + t.getDescription() + " → " + ticket.getDescription());
-        }
-        if (!ticket.getDate().equals(t.getDate())) {
-            up.add("date = ?");
-            parameters.add(ticket.getDate());
-            logChanges.add("Date: " + t.getDate() + " → " + ticket.getDate());
-        }
-        if (!ticket.getState().equals(t.getState())) {
-            up.add("state = ?");
-            parameters.add(ticket.getState());
-            logChanges.add("État: " + t.getState() + " → " + ticket.getState());
-        }
-        if (!ticket.getPrenom().equals(t.getPrenom())) {
-            up.add("prenom = ?");
-            parameters.add(ticket.getPrenom());
-            logChanges.add("Prénom: " + t.getPrenom() + " → " + ticket.getPrenom());
-        }
-        if (!ticket.getNom().equals(t.getNom())) {
-            up.add("nom = ?");
-            parameters.add(ticket.getNom());
-            logChanges.add("Nom: " + t.getNom() + " → " + ticket.getNom());
-        }
-        if (!ticket.getEmail().equals(t.getEmail())) {
-            up.add("email = ?");
-            parameters.add(ticket.getEmail());
-            logChanges.add("Email: " + t.getEmail() + " → " + ticket.getEmail());
-        }
-        if (!ticket.getAdresse().equals(t.getAdresse())) {
-            up.add("adresse = ?");
-            parameters.add(ticket.getAdresse());
-            logChanges.add("Adresse: " + t.getAdresse() + " → " + ticket.getAdresse());
-        }
-        if (!ticket.getVille().equals(t.getVille())) {
-            up.add("ville = ?");
-            parameters.add(ticket.getVille());
-            logChanges.add("Ville: " + t.getVille() + " → " + ticket.getVille());
-        }
-
-        // Vérifier s'il y a des modifications
-        if (!up.isEmpty()) {
-            sql.append(String.join(", ", up));
-            sql.append(" WHERE id = ?");
-            parameters.add(ticket.getId());
-
-            String logMessage = "Ticket " + ticket.getId() + " edited. Changes : " + String.join(", ", logChanges);
-            LogManager.log("UPDATE", logMessage);
-
-            System.out.println("Requête exécutée : " + sql);
-        } else {
-            System.out.println("Aucune modification détectée.");
-        }
-
-        return "redirect:/";
-    }
 
 
     @GetMapping("/new")
@@ -155,53 +65,21 @@ public class PagesController {
         return "pages/new";
     }
 
-    @PostMapping("/new")
-    public String newTicket(@ModelAttribute Tickets ticket,@RequestParam("description") String description, RedirectAttributes redirectAttributes) {
-        System.out.println(ticket);
 
-        // Vérifier si l'utilisateur existe
-        String userQuery = "SELECT * FROM user WHERE cuid = ?";
-        List<Object> userParams = Arrays.asList(ticket.getCuid());
-        List<String> user = executeSelect(userQuery, userParams);
-
-        // Si l'utilisateur n'existe pas, l'insérer
-        if (user.isEmpty()) {
-            String insertUserQuery = "INSERT INTO user (cuid, prenom, nom, email, adresse, ville) VALUES (?, ?, ?, ?, ?, ?)";
-            List<Object> insertUserParams = Arrays.asList(
-                    ticket.getCuid(), ticket.getPrenom(), ticket.getNom(),
-                    ticket.getEmail(), ticket.getAdresse(), ticket.getVille()
-            );
-            if (executeUpdate(insertUserQuery, insertUserParams)) {
-                LogManager.log("INSERT", "User : " + ticket.getCuid() + " has been created in table user");
-            }
-        }
-
-        String insertTicketQuery = "INSERT INTO ticket (cuid, description, state) VALUES (?, ?, ?)";
-        System.out.println(description);
-        ticket.setDescription(description);
-        List<Object> insertTicketParams = Arrays.asList(ticket.getCuid(), ticket.getDescription(), ticket.getState());
-
-        if (executeUpdate(insertTicketQuery, insertTicketParams)) {
-            LogManager.log("INSERT", "Ticket : " + ticket.getId() + " has been created");
-            redirectAttributes.addFlashAttribute("success", true);
-        } else {
-            LogManager.log("ERROR", "Ticket : " + ticket.getId() + " can't be created");
-        }
-        return "redirect:/new";
-    }
 
     @GetMapping("/description")
     public String description(@RequestParam(required = true) String id, ModelMap modelMap) {
-        modelMap.addAttribute("ticket", table.get(Integer.parseInt(id)-1));
+        modelMap.addAttribute("ticket", ticketsService.getTicketById(Long.parseLong(id)));
         return "pages/description";
     }
 
-    @PostMapping("/description")
-    public String desc(@RequestParam("description") String descritpion,@RequestParam("id") String id,RedirectAttributes redirectAttributes) {
-        Tickets ticket = table.get(Integer.parseInt(id)-1);
-        ticket.setDescription(descritpion);
-        redirectAttributes.addFlashAttribute("success", true);
+    @GetMapping("/auth/login")
+    public String showLoginPage() {
+        return "auth/login"; // Affiche login.html
+    }
 
-        return "redirect:/?id="+id;
+    @GetMapping("/auth/register")
+    public String showRegisterPage() {
+        return "auth/register"; // Affiche register.html
     }
 }
