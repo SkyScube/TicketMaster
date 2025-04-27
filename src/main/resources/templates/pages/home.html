@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -22,6 +23,7 @@
   </div>
 
 
+
   <div th:if="${table == null and id != null}">
     <div class="custom-container">
       <div class="custom-row">
@@ -29,61 +31,65 @@
           <div class="info-box">
             <h2>Informations</h2>
             <p><strong>ID :</strong> <span th:text="${id.id}"></span></p>
-            <p><strong>CUID :</strong> <span th:text="${id.user.getCuid()}"></span></p>
+            <p><strong>CUID :</strong> <span th:text="${id.user.cuid}"></span></p>
+            <button class="custom-button" th:href="@{/description(id=${id.id})}">Descriptions</button>
             <a th:href="@{/description(id=${id.id})}">
               <button class="custom-button" type="button">Voir la description</button>
             </a>
-            <button class="custom-button" th:href="@{/description(id=${id.id})}">Descriptions</button>
             <p><strong>Date :</strong> <span th:text="${id.date}"></span></p>
             <p><strong>État :</strong> <span th:text="${id.state}"></span></p>
-            <p><strong>Prénom :</strong> <span th:text="${id.user.getPrenom()}"></span></p>
+            <p><strong>Prénom :</strong> <span th:text="${id.user.prenom}"></span></p>
             <p><strong>Nom :</strong> <span th:text="${id.user.getNom()}"></span></p>
             <p><strong>Email :</strong> <span th:text="${id.user.getEmail()}"></span></p>
             <p><strong>Adresse :</strong> <span th:text="${id.user.getAdresse()}"></span></p>
             <p><strong>Ville :</strong> <span th:text="${id.user.getVille() }"></span></p>
+            <div th:if="${searchTerm}">
+              <a th:href="@{/search(searchTerm=${searchTerm})}">← Retour aux résultats</a>
+            </div>
           </div>
         </div>
-<!--
+
+        <div sec:authorize="hasRole('EDITOR')">
         <div class="custom-column">
           <div class="form-box">
             <h2>Modifier les informations</h2>
-            <form th:action="@{/update}" method="post" th:object="${id}">
-              <label for="id">Id :</label>
-              <input type="text" id="id" name="id" th:field="*{id}" readonly/>
+            <form th:action="@{/update}" method="post" th:object="${id}" class="edit-form">
+              <input type="hidden" th:field="*{id}" readonly/>
 
-              <label for="cuid">cuid :</label>
-              <input type="text" id="cuid" th:field="*{cuid}" readonly/>
+              <label for="cuid">CUID :</label>
+              <input type="text" id="cuid" th:field="*{user.cuid}" required />
 
-              <label for="description">description :</label>
-              <input type="text" id="description" th:field="*{description}" />
+              <label for="date">Date :</label>
+              <input type="text" id="date" th:field="*{date}" readonly />
 
-              <label for="date">date :</label>
-              <input type="text" id="date" th:field="*{date}" />
-
-              <label for="state">etat :<label>
-              <select id="state" th:field="*{state}">
+              <label for="etat">etat :</label>
+              <select id="etat" th:field="*{state}" required>
                 <option value="Ouvert">Ouvert</option>
                 <option value="En cours">En cours</option>
                 <option value="Clos">Clos</option>
               </select>
 
               <label for="prenom">Prénom :</label>
-              <input type="text" id="prenom" th:field="*{prenom}" readonly/>
+              <input type="text" id="prenom" th:field="*{user.prenom}" required />
 
               <label for="nom">Nom :</label>
-              <input type="text" id="nom" th:field="*{nom}" readonly/>
+              <input type="text" id="nom" th:field="*{user.nom}" required />
 
               <label for="email">Email :</label>
-              <input type="email" id="email" th:field="*{email}" readonly/>
+              <input type="email" id="email" th:field="*{user.email}" required />
 
               <label for="adresse">Adresse :</label>
-              <input type="text" id="adresse" th:field="*{adresse}" readonly/>
+              <input type="text" id="adresse" th:field="*{user.adresse}" required />
 
               <label for="ville">Ville :</label>
-              <input type="text" id="ville" th:field="*{ville}" readonly/>
+              <input type="text" id="ville" th:field="*{user.ville}" required />
 
-              <button type="submit" class="custom-button">Enregistrer</button>
-            </form>-->
+              <div class="form-buttons">
+                <button type="submit">Enregistrer</button>
+                <a th:href="@{/}" class="cancel-button">Annuler</a>
+              </div>
+            </form>
+          </div>
           </div>
         </div>
       </div>

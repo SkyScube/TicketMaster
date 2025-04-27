@@ -38,10 +38,6 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             if (authentication.isAuthenticated()) {
-                //Map<String, Object> authData = new HashMap<>();
-                //authData.put("token", jwtUtils.generateToken(user.getUsername()));
-                //authData.put("type", "Bearer");
-                //return ResponseEntity.ok(authData);
                 String token = jwtUtils.generateToken(user.getUsername());
                 Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
                 jwtCookie.setHttpOnly(true);
@@ -52,8 +48,6 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.SEE_OTHER)
                         .header(HttpHeaders.LOCATION, "/")
                         .build();
-                //return ResponseEntity.ok(Map.of("redirectUrl", "/"));
-                //return ResponseEntity.status(303).header("Location", "/").body(authData);
             }
             LogManager.TechLog("ERROR", user.getUsername(), "try logged in");
             return ResponseEntity.status(HttpStatus.SEE_OTHER)
@@ -78,9 +72,9 @@ public class AuthController {
         Tech newUser = new Tech();
         newUser.setUsername(username);
         newUser.setPassword(hashedPassword);
-        newUser.setRole("ROLE_USER"); // Valeur par défaut
-
+        newUser.setRole("r"); // Valeur par défaut
         techRepository.save(newUser);
+        LogManager.TechLog("REGISTER", username, "role = " + newUser.getRole());
         return ResponseEntity.status(303).header("Location", "/auth/login").build();
     }
 }

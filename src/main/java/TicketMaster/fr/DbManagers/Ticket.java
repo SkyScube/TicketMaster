@@ -4,6 +4,7 @@ import TicketMaster.fr.security.Tech;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -35,19 +36,19 @@ public class Ticket {
         try {
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             description =  timestamp + " " + tech + " : " + description + "\n";
-            System.out.println(this.id + description);
-            Files.write(Paths.get(LOG_DIR+this.id+".log"), description.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            String path = LOG_DIR+this.id+".log";
+            Files.write(Paths.get(path), description.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            if (this.description == null || !this.description.equals(path)) {
+                this.description = path;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public List<String> getDescription() {
-        try{
-            return Files.readAllLines(Paths.get(LOG_DIR+ this.id+".log"));
-        } catch (IOException e){
-            e.printStackTrace();
-
-        }
-        return new ArrayList<>();
+    public String getDescription() {
+        return LOG_DIR+this.id+".log";
     }
+
+    public String getAssignedUser() {
+        return (user != null) ? user.getNom() + " " + user.getPrenom() : "Aucun utilisateur";     }
 }

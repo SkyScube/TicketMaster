@@ -64,10 +64,10 @@
     </div>
     <a th:href="@{/new}"> voila </a>
     <div class="form-container">
-        <form action="/submit" method="post">
-            <label for="inputText">Saisissez du texte :</label>
-            <input type="text" id="inputText" name="inputText" required>
-            <button type="submit">Envoyer</button>
+        <form th:action="@{/search}" method="get">
+            <label for="searchTerm">Saisissez du texte :</label>
+            <input type="text" id="searchTerm" name="searchTerm" required>
+            <button type="submit">Rechercher</button>
         </form>
     </div>
 </div>

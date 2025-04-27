@@ -1,5 +1,6 @@
 package TicketMaster.fr;
 
+import TicketMaster.fr.DbManagers.Ticket;
 import TicketMaster.fr.utils.LogManager;
 import org.apache.juli.logging.Log;
 
@@ -12,45 +13,12 @@ public class DbManager {
 
     public static String path = "jdbc:mysql://localhost:3306/Test";
 
-    public static List<Tickets> gettable() {
-        List<Tickets> table = new ArrayList<>();
+    public static List<Ticket> query(List<Ticket> arg, String user){
+        List<Ticket> j = new ArrayList<>();
 
-        String sql = "SELECT * FROM ticket JOIN user using (cuid)"; // Votre requête SQL
-
-        try (Connection conn = DriverManager.getConnection(path, "root", "RandomPSW");
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            // Récupérer les métadonnées du résultat
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount(); // Nombre de colonnes
-
-            // Parcourir les résultats
-            while (rs.next()) {
-                List<String> row = new ArrayList<>();
-                    String id = rs.getString("id");
-                    String cuid = rs.getString("cuid");
-                    String description = rs.getString("description");
-                    String date = rs.getString("date");
-                    String state = rs.getString("state");
-                    String prenom = rs.getString("prenom");
-                    String nom = rs.getString("nom");
-                    String email = rs.getString("email");
-                    String adresse = rs.getString("adresse");
-                    String ville = rs.getString("ville");
-                table.add(new Tickets(id,cuid,description,date,state,prenom,nom,email,adresse,ville)); // Ajouter la ligne à la table4
-            }
-
-        } catch (SQLException e) {
-            LogManager.log("Error", "Error on the table : "+ e.getMessage());
-        }
-        return new ArrayList<>();
-    }
-
-    public static List<List<String>> query(List<List<String>> arg, String user){
-        List<List<String>> j = new ArrayList<>();
-        for (List<String> i : arg) {
-            if (i.contains(user)) {
+        for (Ticket i : arg) {
+            System.out.println(i.getAssignedUser());
+            if (i.getAssignedUser().toLowerCase().contains(user.toLowerCase())) {
                 j.add(i);
             }
         }

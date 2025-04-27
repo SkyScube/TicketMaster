@@ -9,13 +9,14 @@
 <div th:insert="fragments/navbar"></div><br>
 <div class="container">
     <div th:each="subList : ${table}">
-                <a class="affiche" th:href="@{/(id=${subList[0]})}">
-                    <p ><span>id :</span> <span th:text="${subList[0]}"></span></p>
-                    <p><span>prénom :</span> <span th:text="${subList[4]}"></span></p>
-                    <p><span>nom :</span> <span th:text="${subList[5]}"></span></p>
-                    <p><span>cuid :</span> <span th:text="${subList[1]}"></span></p>
-                </a>
-            </div>
-        </div>
+        <a class="affiche" th:href="@{/(id=${subList.id}, searchTerm=${searchTerm})}">
+            <p ><span>id :</span> <span th:text="${subList.id}"></span></p>
+            <p><span>prénom :</span> <span th:text="${subList.user.getPrenom()}"></span></p>
+            <p><span>nom :</span> <span th:text="${subList.user.getNom()}"></span></p>
+            <p><span>cuid :</span> <span th:text="${subList.user.getCuid()}"></span></p>
+            <p><span>etat :</span> <span th:text="${subList.state}"></span></p>
+        </a>
+    </div>
+</div>
 </body>
 </html>

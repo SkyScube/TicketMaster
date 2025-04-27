@@ -12,17 +12,49 @@
         <div class="form-box">
             <h2>Modifier les informations</h2>
             <form th:action="@{/new}" method="post" th:object="${ticket}">
-                <label for="id">Id :</label>
-                <input type="text" id="id" name="id" th:value="${id}" readonly/>
 
                 <label for="cuid">cuid :</label>
-                <input type="text" id="cuid" th:field="*{cuid}" required/>
+                <input type="text" id="cuid" th:field="*{user.cuid}" required onblur="checkCuid()"/>
+                <script>
+                    function checkCuid() {
+                        const cuid = document.getElementById("cuid").value;
+                        fetch(`/api/user/${cuid}`)
+                            .then(res => {
+                                if (res.ok) {
+                                    return res.json();
+                                } else {
+                                    throw new Error("Not found");
+                                }
+                            })
+                            .then(data => {
+                                // Remplir les champs automatiquement
+                                document.getElementById("prenom").value = data.prenom;
+                                document.getElementById("nom").value = data.nom;
+                                document.getElementById("email").value = data.email;
+                                document.getElementById("adresse").value = data.adresse;
+                                document.getElementById("ville").value = data.ville;
 
-                <label for="description">description :</label>
-                <input type="text" id="description" name="description" th:value="${description}" required/>
+                                // Les rendre non modifiables
+                                ["prenom", "nom", "email", "adresse", "ville"].forEach(id => {
+                                    document.getElementById(id).readOnly = true;
+                                });
+                            })
+                            .catch(err => {
+                                // Affiche un popup si le user n’existe pas
+                                alert("Nouvel utilisateur. Veuillez saisir les informations.");
+                                ["prenom", "nom", "email", "adresse", "ville"].forEach(id => {
+                                    document.getElementById(id).readOnly = false;
+                                    document.getElementById(id).value = "";
+                                });
+                            });
+                    }
+                </script>
+
+                <label for="description">Nouvelle description :</label>
+                <textarea id="description" name="description" required></textarea>
 
                 <label for="date">date :</label>
-                <input type="text" id="date" th:value="${date}" readonly/>
+                <input type="text" id="date" th:value="${#dates.format(date, 'yyyy-MM-dd HH:mm')}" readonly/>
 
                 <label for="state">etat :</label>
                     <select id="state" th:field="*{state}" required>
@@ -32,19 +64,19 @@
                     </select>
 
                     <label for="prenom">Prénom :</label>
-                    <input type="text" id="prenom" th:field="*{prenom}" required/>
+                    <input type="text" id="prenom" th:field="*{user.prenom}" required/>
 
                     <label for="nom">Nom :</label>
-                    <input type="text" id="nom" th:field="*{nom}" required/>
+                    <input type="text" id="nom" th:field="*{user.nom}" required/>
 
                     <label for="email">Email :</label>
-                    <input type="email" id="email" th:field="*{email}" required/>
+                    <input type="email" id="email" th:field="*{user.email}" required/>
 
                     <label for="adresse">Adresse :</label>
-                    <input type="text" id="adresse" th:field="*{adresse}" required/>
+                    <input type="text" id="adresse" th:field="*{user.adresse}" required/>
 
                     <label for="ville">Ville :</label>
-                    <input type="text" id="ville" th:field="*{ville}" required/>
+                    <input type="text" id="ville" th:field="*{user.ville}" required/>
 
                     <button type="submit" class="custom-button">Enregistrer</button>
             </form>
