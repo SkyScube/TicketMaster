@@ -6,9 +6,7 @@ services:
     container_name: ticketmaster-mysql
     environment:
       MYSQL_ROOT_PASSWORD: RandomPSW
-      MYSQL_DATABASE: ticketmasterdb
-      MYSQL_USER: ticketuser
-      MYSQL_PASSWORD: ticketpassword
+      MYSQL_DATABASE: Test
     ports:
       - "3306:3306"
     volumes:
@@ -23,9 +21,9 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ticketmasterdb
-      SPRING_DATASOURCE_USERNAME: ticketuser
-      SPRING_DATASOURCE_PASSWORD: ticketpassword
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/Test
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: RandomPSW
     depends_on:
       - mysql
     networks:
