@@ -1,4 +1,4 @@
-# Étape 1 : Builder le projet
+# Étape 1 : Builder le proje
 FROM gradle:8.5-jdk21 AS build
 
 WORKDIR /home/gradle/project
