@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ticketmaster-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: RandomPSW
+      MYSQL_DATABASE: ticketmasterdb
+      MYSQL_USER: ticketuser
+      MYSQL_PASSWORD: ticketpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - ticket-net
+    restart: always
+
+  ticketmaster-app:
+    build: .
+    container_name: ticketmaster-app
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ticketmasterdb
+      SPRING_DATASOURCE_USERNAME: ticketuser
+      SPRING_DATASOURCE_PASSWORD: ticketpassword
+    depends_on:
+      - mysql
+    networks:
+      - ticket-net
+    restart: always
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run --token YOUR_CLOUDFLARE_TUNNEL_TOKEN
+    restart: always
+    networks:
+      - ticket-net
+
+volumes:
+  db-data:
+
+networks:
+  ticket-net:
